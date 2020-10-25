@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class panelReloj extends JPanel implements ActionListener
+public class Reloj extends JPanel implements ActionListener
 {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class panelReloj extends JPanel implements ActionListener
     private int h, m, s;
     private String[] rutaImagenes;
     
-    public panelReloj() {
+    public Reloj() {
     	h = 0;m = 0; s = 0;
     	rutaImagenes = new String[11];
     	cargarImagenes();

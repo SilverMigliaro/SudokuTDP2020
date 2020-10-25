@@ -25,7 +25,7 @@ import logica.Juego;
 
 import java.awt.event.ActionEvent;
 
-public class ventanaJuego extends javax.swing.JFrame
+public class gui extends javax.swing.JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private JButton botonIniciar;  
@@ -34,7 +34,7 @@ public class ventanaJuego extends javax.swing.JFrame
 	private JLabel textoTiempo;
 	private JLabel cantidad_errores;
 	private JLabel textoErrores;
-	private panelReloj relojDigital;
+	private Reloj relojDigital;
 	private JPanel tablero;
 	private Juego juego;
 	private	int posX,posY;
@@ -44,7 +44,7 @@ public class ventanaJuego extends javax.swing.JFrame
 	private final static int GANO = 1;
 	private final static int PERDIO = 0;
 	
-    public ventanaJuego()
+    public gui()
     {
     	juego = new Juego();
     	posX = POS_NULL;
@@ -57,7 +57,7 @@ public class ventanaJuego extends javax.swing.JFrame
     {
     	//Inicialización del panel.
     	tablero = new JPanel();
-    	relojDigital = new panelReloj();
+    	relojDigital = new Reloj();
     	//Inicialización de las etiquetas.
         titulo = new JLabel();
         textoTiempo = new JLabel();
@@ -234,7 +234,7 @@ public class ventanaJuego extends javax.swing.JFrame
         this.botonIniciar.setEnabled(true); 
       	this.botonReiniciar.setEnabled(false);
       	relojDigital.parar();
-      	jugarDevuelta();  
+      	jugarDeVuelta();  
     }
     
     /*
@@ -244,7 +244,7 @@ public class ventanaJuego extends javax.swing.JFrame
 
     	if(posX != POS_NULL && posY != POS_NULL) 
     	{
-    		if(juego.estaVaciaCelda(posY, posX ) && mostrarJugadaIncorrecta(posY,posX,valor)&&juego.getErrores()<3) 
+    		if(juego.estaVaciaCasilla(posY, posX ) && mostrarJugadaIncorrecta(posY,posX,valor)&&juego.getErrores()<3) 
     		{
     			juego.actualizarValor(juego.getCasilla(posY, posX), valor);
     	    	ImageIcon grafico = juego.getCasilla(posY, posX).getGrafica().getGrafico();
@@ -254,7 +254,7 @@ public class ventanaJuego extends javax.swing.JFrame
     	    	if(juego.estaLlenaGrilla()) 
     	    	{
     	   			relojDigital.parar();
-    	    		finalizoPartida(GANO);
+    	    		finalizarPartida(GANO);
     	    		juego.finalizarJuego();
     	    	}
     		}
@@ -263,7 +263,7 @@ public class ventanaJuego extends javax.swing.JFrame
     			if(juego.getErrores() == 3) 
     			{
     				relojDigital.parar();
-        			finalizoPartida(PERDIO);
+        			finalizarPartida(PERDIO);
         			juego.finalizarJuego();
     			}
 			}	
@@ -273,7 +273,7 @@ public class ventanaJuego extends javax.swing.JFrame
     /*
      * Muestra si hay una jugada invalidad.
      */
-    public boolean mostrarJugadaIncorrecta(int fila,int col,int valor)
+    private boolean mostrarJugadaIncorrecta(int fila,int col,int valor)
     {	
     	boolean opcA = juego.estaEnFila(fila, valor);
     	boolean opcB = juego.estaEnColumna(col, valor);
@@ -334,7 +334,7 @@ public class ventanaJuego extends javax.swing.JFrame
 	        }	
     	}
     	else
-    		finalizoPartida(ERROR_SALIDA);
+    		finalizarPartida(ERROR_SALIDA);
     }
    
     /*
@@ -353,7 +353,7 @@ public class ventanaJuego extends javax.swing.JFrame
     /*
      * Finaliza la partida grafica.
      */
-	public void finalizoPartida(int mensaje) 
+	public void finalizarPartida(int mensaje) 
 	{
 		String[] pathIcon = {"/img/win.png","/img/loser.png","/img/error.png"};
 		Icon icono;
@@ -376,7 +376,7 @@ public class ventanaJuego extends javax.swing.JFrame
 		}
 		
 		if(respuesta == 0)
-			jugarDevuelta();
+			jugarDeVuelta();
 		else
 		{
 			System.exit(respuesta);
@@ -386,10 +386,10 @@ public class ventanaJuego extends javax.swing.JFrame
 	/*
 	 * Se crea una partida nueva.
 	 */
-	public void jugarDevuelta() 
+	public void jugarDeVuelta() 
 	{
 		this.dispose();
-		ventanaJuego.main(null); 
+		gui.main(null); 
 	}
     
     public static void main(String args[]) {
@@ -402,18 +402,18 @@ public class ventanaJuego extends javax.swing.JFrame
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventanaJuego().setVisible(true);
+                new gui().setVisible(true);
             }
         });
     }

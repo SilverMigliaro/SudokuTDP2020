@@ -179,7 +179,7 @@ public class Juego
 	/*
 	 * Verifica si la casilla esta vacia.
 	 */
-    public boolean estaVaciaCelda(int i,int j)
+    public boolean estaVaciaCasilla(int i,int j)
     { 
     	return grilla[i][j].getValor() == 0;
     }

@@ -3,8 +3,8 @@ package logica;
 public class Casilla
 {
 	private Integer color;
-	protected Integer valor;
-	protected EntidadGrafica grafico;
+	private Integer valor;
+	private EntidadGrafica grafico;
 	
 	public Casilla()
 	{
